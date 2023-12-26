@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiPizza, Pizza, PizzaList} from '../../types';
+import {ApiPizza, Pizza, PizzaList, PizzaUpdate} from '../../types';
 import axiosApi from '../../http/axiosApi';
 
 export const createPizza = createAsyncThunk<void, Pizza>(
@@ -43,14 +43,16 @@ export const getOnePizza = createAsyncThunk<Pizza, string>(
   },
 );
 
-interface PizzaUpdate {
-  id: string;
-  pizza: Pizza;
-}
-
 export const updatePizza = createAsyncThunk<void, PizzaUpdate>(
   'pizza/update',
   async ({id, pizza}) => {
     await axiosApi.put(`/pizza/${id}.json`, pizza);
+  },
+);
+
+export const deletePizza = createAsyncThunk<void, string>(
+  'pizza/delete',
+  async (id) => {
+    await axiosApi.delete(`/pizza/${id}.json`);
   },
 );

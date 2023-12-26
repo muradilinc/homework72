@@ -11,3 +11,8 @@ export interface ApiPizza {
 export interface PizzaList extends Pizza {
   id: string;
 }
+
+export interface PizzaUpdate {
+  id: string;
+  pizza: Pizza;
+}

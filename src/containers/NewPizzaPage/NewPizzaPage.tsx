@@ -4,15 +4,17 @@ import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {createPizza, getOnePizza, getPizzas, updatePizza} from '../../store/dishes/PizzaThunk';
 import {placeholderImage} from '../../constants/image';
 import {useNavigate, useParams} from 'react-router-dom';
-import {selectCreateLoading, selectPizza, selectUpdateLoading} from '../../store/dishes/PizzaSlice';
+import {selectCreateLoading, selectPizza, selectPizzaLoading, selectUpdateLoading} from '../../store/dishes/PizzaSlice';
 import {DISHES_PAGE} from '../../constants/routes';
 import {ButtonSpinner} from '../../components/Spinner/ButtonSpinner';
+import Spinner from '../../components/Spinner/Spinner';
 
 const NewPizzaPage = () => {
   const {id} = useParams() as { id: string };
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const prevPizza = useAppSelector(selectPizza);
+  const prevPizzaLoading = useAppSelector(selectPizzaLoading);
   const updateLoading = useAppSelector(selectUpdateLoading);
   const createLoading = useAppSelector(selectCreateLoading);
   const [pizza, setPizza] = useState<Pizza>({
@@ -55,6 +57,10 @@ const NewPizzaPage = () => {
       price: 0,
     }));
   };
+
+  if (id && prevPizzaLoading) {
+    return  <Spinner/>;
+  }
 
   return (
     <form onSubmit={onCreatePizza}>

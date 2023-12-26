@@ -1,22 +1,34 @@
 import {Link, Outlet, useNavigate, useParams} from 'react-router-dom';
 import {DISHES_PAGE, EDIT_PIZZA, NEW_PIZZA} from '../../constants/routes';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {selectPiazzas} from '../../store/dishes/PizzaSlice';
+import {selectDeletePizzaLoading, selectPizzas, selectPizzasLoading} from '../../store/dishes/PizzaSlice';
 import {useEffect} from 'react';
-import {getPizzas} from '../../store/dishes/PizzaThunk';
+import {deletePizza, getPizzas} from '../../store/dishes/PizzaThunk';
+import Spinner from '../../components/Spinner/Spinner';
 
 const PizzaDishesPage = () => {
   const {id} = useParams();
   const dispatch = useAppDispatch();
+  const pizzasLoading = useAppSelector(selectPizzasLoading);
+  const deleteLoading = useAppSelector(selectDeletePizzaLoading);
   const navigate = useNavigate();
-  const pizzas = useAppSelector(selectPiazzas);
+  const pizzas = useAppSelector(selectPizzas);
 
   useEffect(() => {
     dispatch(getPizzas());
   }, [dispatch]);
 
+  const onDelete = async (id: string) => {
+    await dispatch(deletePizza(id));
+    await dispatch(getPizzas());
+  };
+
   if (id) {
     return <Outlet/>;
+  }
+
+  if (pizzasLoading) {
+    return <Spinner/>;
   }
 
   return (
@@ -34,7 +46,7 @@ const PizzaDishesPage = () => {
         {
           pizzas.map((pizza) => (
             <div key={pizza.id} className="grid grid-cols-4 items-center justify-between border border-black p-2">
-              <div className="col-span-1 flex justify-center">
+              <div className="col-span-1 flex justify-start">
                 <img className="w-[50%] h-[150px]" src={pizza.image} alt="pizzaImg"/>
               </div>
               <div className="col-span-1">
@@ -45,12 +57,15 @@ const PizzaDishesPage = () => {
               </div>
               <div className="col-span-1 flex justify-around">
                 <button
+                  disabled={deleteLoading}
                   onClick={() => navigate(`${DISHES_PAGE}${EDIT_PIZZA}/${pizza.id}`)}
                   className="capitalize underline text-xl"
                 >
                   edit
                 </button>
                 <button
+                  disabled={deleteLoading}
+                  onClick={() => onDelete(pizza.id)}
                   className="capitalize underline text-xl"
                 >
                   delete

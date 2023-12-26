@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {createPizza, getOnePizza, getPizzas, updatePizza} from './PizzaThunk';
+import {createPizza, deletePizza, getOnePizza, getPizzas, updatePizza} from './PizzaThunk';
 import {Pizza, PizzaList} from '../../types';
 import {RootState} from '../../redux/store';
 
@@ -10,6 +10,7 @@ interface PizzaState {
   getPizzaLoading: boolean;
   getOnePizzaLoading: boolean;
   updatePizzaLoading: boolean;
+  deletePizzaLoading: boolean;
 }
 
 const initialState: PizzaState = {
@@ -19,6 +20,7 @@ const initialState: PizzaState = {
   getPizzaLoading: false,
   getOnePizzaLoading: false,
   updatePizzaLoading: false,
+  deletePizzaLoading: false,
 };
 
 export const pizzaSlice = createSlice({
@@ -64,15 +66,25 @@ export const pizzaSlice = createSlice({
     builder.addCase(updatePizza.rejected, (state) => {
       state.updatePizzaLoading = false;
     });
+    builder.addCase(deletePizza.pending, (state) => {
+      state.deletePizzaLoading = true;
+    });
+    builder.addCase(deletePizza.fulfilled, (state) => {
+      state.deletePizzaLoading = false;
+    });
+    builder.addCase(deletePizza.rejected, (state) => {
+      state.deletePizzaLoading = false;
+    });
   }
 });
 
 export const pizzaReducer = pizzaSlice.reducer;
 
-export const selectPiazzas = (state: RootState) => state.pizza.pizzas;
+export const selectPizzas = (state: RootState) => state.pizza.pizzas;
 export const selectPizza = (state: RootState) => state.pizza.pizza;
 
 export const selectCreateLoading = (state: RootState) => state.pizza.createPizzaLoading;
 export const selectPizzasLoading = (state: RootState) => state.pizza.getPizzaLoading;
 export const selectPizzaLoading = (state: RootState) => state.pizza.getOnePizzaLoading;
 export const selectUpdateLoading = (state: RootState) => state.pizza.updatePizzaLoading;
+export const selectDeletePizzaLoading = (state: RootState) => state.pizza.deletePizzaLoading;
