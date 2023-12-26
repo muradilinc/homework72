@@ -1,0 +1,1 @@
+export const DELIVER_PRICE = 150;

@@ -1,3 +1,5 @@
+import Pizza from './components/PizzaView/Pizza';
+
 export interface Pizza {
   name: string;
   price: number;
@@ -15,4 +17,25 @@ export interface PizzaList extends Pizza {
 export interface PizzaUpdate {
   id: string;
   pizza: Pizza;
+}
+
+export interface Order {
+  id: string;
+  order: PizzaList;
+  amount: number;
+}
+
+export interface ApiOrder {
+  [id: string]: number;
+}
+
+export interface Person {
+  name: string;
+  address: string;
+  phone: string;
+}
+
+export interface NewOrder {
+  orders: ApiOrder;
+  person: Person;
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Pizza} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {createPizza, getOnePizza, getPizzas, updatePizza} from '../../store/dishes/PizzaThunk';
@@ -33,14 +33,14 @@ const NewPizzaPage = () => {
     }
   }, [id, prevPizza]);
 
-  const changePizza = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changePizza = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
 
     setPizza((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-  };
+  }, []);
 
   const onCreatePizza = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -74,7 +74,7 @@ const NewPizzaPage = () => {
           required
           value={pizza.name}
           onChange={changePizza}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+          className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
       </div>
       <div className="mb-6">
         <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image
@@ -86,7 +86,7 @@ const NewPizzaPage = () => {
           required
           value={pizza.image}
           onChange={changePizza}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+          className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
       </div>
       <div className="mb-6">
         <img
@@ -105,7 +105,7 @@ const NewPizzaPage = () => {
           required
           value={pizza.price}
           onChange={changePizza}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+          className="outline-0 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
       </div>
       {
         createLoading || updateLoading ?

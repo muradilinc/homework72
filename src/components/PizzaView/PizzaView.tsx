@@ -2,6 +2,8 @@ import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {selectPizzas} from '../../store/dishes/PizzaSlice';
 import {deletePizza, getPizzas} from '../../store/dishes/PizzaThunk';
 import PizzaMemoed from './Pizza';
+import {selectPizza} from '../../store/orders/OrderSlice';
+import {PizzaList} from '../../types';
 
 const PizzaView = () => {
   const dispatch = useAppDispatch();
@@ -12,11 +14,20 @@ const PizzaView = () => {
     await dispatch(getPizzas());
   };
 
+  const onSelectPizza = (pizza: PizzaList)=> {
+    dispatch(selectPizza(pizza));
+  };
+
   return (
     <div className="flex gap-y-3 flex-col my-3">
       {
         pizzas.map((pizza) =>
-          <PizzaMemoed key={pizza.id} pizza={pizza} onDelete={() => onDelete(pizza.id)}/>
+          <PizzaMemoed
+            key={pizza.id}
+            pizza={pizza}
+            onSelect={() => onSelectPizza(pizza)}
+            onDelete={() => onDelete(pizza.id)}
+          />
         )
       }
     </div>
