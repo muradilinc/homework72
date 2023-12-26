@@ -1,17 +1,23 @@
-import {Link} from 'react-router-dom';
-import {NEW_PIZZA} from '../../constants/routes';
+import {Link, Outlet, useNavigate, useParams} from 'react-router-dom';
+import {DISHES_PAGE, EDIT_PIZZA, NEW_PIZZA} from '../../constants/routes';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
 import {selectPiazzas} from '../../store/dishes/PizzaSlice';
 import {useEffect} from 'react';
 import {getPizzas} from '../../store/dishes/PizzaThunk';
 
 const PizzaDishesPage = () => {
+  const {id} = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const pizzas = useAppSelector(selectPiazzas);
 
   useEffect(() => {
     dispatch(getPizzas());
   }, [dispatch]);
+
+  if (id) {
+    return <Outlet/>;
+  }
 
   return (
     <div>
@@ -27,7 +33,7 @@ const PizzaDishesPage = () => {
       <div className="flex gap-y-3 flex-col my-3">
         {
           pizzas.map((pizza) => (
-            <div className="grid grid-cols-4 items-center justify-between border border-black p-2">
+            <div key={pizza.id} className="grid grid-cols-4 items-center justify-between border border-black p-2">
               <div className="col-span-1 flex justify-center">
                 <img className="w-[50%] h-[150px]" src={pizza.image} alt="pizzaImg"/>
               </div>
@@ -37,11 +43,18 @@ const PizzaDishesPage = () => {
               <div className="col-span-1 grid place-content-center">
                 <p>{pizza.price} KGS</p>
               </div>
-              <div className="col-span-1 grid place-content-center">
-                <div className="flex gap-x-3">
-                  <button className="capitalize underline">edit</button>
-                  <button className="capitalize underline">delete</button>
-                </div>
+              <div className="col-span-1 flex justify-around">
+                <button
+                  onClick={() => navigate(`${DISHES_PAGE}${EDIT_PIZZA}/${pizza.id}`)}
+                  className="capitalize underline text-xl"
+                >
+                  edit
+                </button>
+                <button
+                  className="capitalize underline text-xl"
+                >
+                  delete
+                </button>
               </div>
             </div>
           ))
