@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {selectPizzas} from '../../store/dishes/PizzaSlice';
-import {deletePizza, getPizzas} from '../../store/dishes/PizzaThunk';
+import {selectPizzas} from '../../store/pizzas/PizzaSlice';
+import {deletePizza, getPizzas} from '../../store/pizzas/PizzaThunk';
 import PizzaMemoed from './Pizza';
 import {selectPizza} from '../../store/orders/OrderSlice';
 import {PizzaList} from '../../types';

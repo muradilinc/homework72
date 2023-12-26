@@ -1,9 +1,9 @@
 import {Link, Outlet, useParams} from 'react-router-dom';
 import {NEW_PIZZA} from '../../constants/routes';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {selectPizzasLoading} from '../../store/dishes/PizzaSlice';
+import {selectPizzasLoading} from '../../store/pizzas/PizzaSlice';
 import {useEffect} from 'react';
-import {getPizzas} from '../../store/dishes/PizzaThunk';
+import {getPizzas} from '../../store/pizzas/PizzaThunk';
 import Spinner from '../../components/Spinner/Spinner';
 import PizzaView from '../../components/PizzaView/PizzaView';
 

@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Pizza} from '../../types';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {createPizza, getOnePizza, getPizzas, updatePizza} from '../../store/dishes/PizzaThunk';
+import {createPizza, getOnePizza, getPizzas, updatePizza} from '../../store/pizzas/PizzaThunk';
 import {placeholderImage} from '../../constants/image';
 import {useNavigate, useParams} from 'react-router-dom';
-import {selectCreateLoading, selectPizza, selectPizzaLoading, selectUpdateLoading} from '../../store/dishes/PizzaSlice';
+import {selectCreateLoading, selectPizza, selectPizzaLoading, selectUpdateLoading} from '../../store/pizzas/PizzaSlice';
 import {DISHES_PAGE} from '../../constants/routes';
 import {ButtonSpinner} from '../../components/Spinner/ButtonSpinner';
 import Spinner from '../../components/Spinner/Spinner';

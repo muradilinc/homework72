@@ -1,9 +1,9 @@
 import PizzaView from '../../components/PizzaView/PizzaView';
 import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {getPizzas} from '../../store/dishes/PizzaThunk';
+import {getPizzas} from '../../store/pizzas/PizzaThunk';
 import Spinner from '../../components/Spinner/Spinner';
-import {selectPizzasLoading} from '../../store/dishes/PizzaSlice';
+import {selectPizzasLoading} from '../../store/pizzas/PizzaSlice';
 import SideBar from '../../components/SideBar/SideBar';
 import {selectOrders} from '../../store/orders/OrderSlice';
 

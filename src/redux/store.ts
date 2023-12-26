@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {pizzaReducer} from '../store/dishes/PizzaSlice';
+import {pizzaReducer} from '../store/pizzas/PizzaSlice';
 import {orderReducer} from '../store/orders/OrderSlice';
 
 export const store = configureStore({

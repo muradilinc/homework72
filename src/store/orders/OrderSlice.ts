@@ -1,18 +1,22 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Order, PizzaList} from '../../types';
+import {Order, PizzaList, ResponseOrders} from '../../types';
 import {RootState} from '../../redux/store';
-import {createOrder} from './OrderThunk';
+import {createOrder, getOrders} from './OrderThunk';
 
 interface OrderState {
   orders: Order[];
+  responseOrders: ResponseOrders[];
   totalPrice: number;
   createOrderLoading: boolean;
+  getAllOrdersLoading: boolean;
 }
 
 const initialState: OrderState = {
   orders: [],
+  responseOrders: [],
   totalPrice: 0,
   createOrderLoading: false,
+  getAllOrdersLoading: false,
 };
 
 export const orderSlice = createSlice({
@@ -65,6 +69,16 @@ export const orderSlice = createSlice({
     builder.addCase(createOrder.rejected, (state) => {
       state.createOrderLoading = false;
     });
+    builder.addCase(getOrders.pending, (state) => {
+      state.getAllOrdersLoading = true;
+    });
+    builder.addCase(getOrders.fulfilled, (state, {payload: orders}: PayloadAction<ResponseOrders[]>) => {
+      state.getAllOrdersLoading = false;
+      state.responseOrders = orders;
+    });
+    builder.addCase(getOrders.rejected, (state) => {
+      state.getAllOrdersLoading = false;
+    });
   },
 });
 
@@ -78,3 +92,4 @@ export const {
 export const selectOrders = (state: RootState) => state.order.orders;
 export const selectTotalPrice = (state: RootState) => state.order.totalPrice;
 export const selectCreateOrderLoading = (state: RootState) => state.order.createOrderLoading;
+export const selectResponseOrders = (state: RootState) => state.order.responseOrders;

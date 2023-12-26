@@ -3,7 +3,7 @@ import {DISHES_PAGE, EDIT_PIZZA} from '../../constants/routes';
 import {PizzaList} from '../../types';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {selectDeletePizzaLoading} from '../../store/dishes/PizzaSlice';
+import {selectDeletePizzaLoading} from '../../store/pizzas/PizzaSlice';
 import {deleteOrder} from '../../store/orders/OrderSlice';
 
 interface Props {
