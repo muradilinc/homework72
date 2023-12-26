@@ -1,27 +1,21 @@
-import {Link, Outlet, useNavigate, useParams} from 'react-router-dom';
-import {DISHES_PAGE, EDIT_PIZZA, NEW_PIZZA} from '../../constants/routes';
+import {Link, Outlet, useParams} from 'react-router-dom';
+import {NEW_PIZZA} from '../../constants/routes';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
-import {selectDeletePizzaLoading, selectPizzas, selectPizzasLoading} from '../../store/dishes/PizzaSlice';
+import {selectPizzasLoading} from '../../store/dishes/PizzaSlice';
 import {useEffect} from 'react';
-import {deletePizza, getPizzas} from '../../store/dishes/PizzaThunk';
+import {getPizzas} from '../../store/dishes/PizzaThunk';
 import Spinner from '../../components/Spinner/Spinner';
+import PizzaView from '../../components/PizzaView/PizzaView';
 
 const PizzaDishesPage = () => {
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const pizzasLoading = useAppSelector(selectPizzasLoading);
-  const deleteLoading = useAppSelector(selectDeletePizzaLoading);
-  const navigate = useNavigate();
-  const pizzas = useAppSelector(selectPizzas);
 
   useEffect(() => {
     dispatch(getPizzas());
   }, [dispatch]);
 
-  const onDelete = async (id: string) => {
-    await dispatch(deletePizza(id));
-    await dispatch(getPizzas());
-  };
 
   if (id) {
     return <Outlet/>;
@@ -42,39 +36,7 @@ const PizzaDishesPage = () => {
           Add new pizza
         </Link>
       </div>
-      <div className="flex gap-y-3 flex-col my-3">
-        {
-          pizzas.map((pizza) => (
-            <div key={pizza.id} className="grid grid-cols-4 items-center justify-between border border-black p-2">
-              <div className="col-span-1 flex justify-start">
-                <img className="w-[50%] h-[150px]" src={pizza.image} alt="pizzaImg"/>
-              </div>
-              <div className="col-span-1">
-                <h3>{pizza.name}</h3>
-              </div>
-              <div className="col-span-1 grid place-content-center">
-                <p>{pizza.price} KGS</p>
-              </div>
-              <div className="col-span-1 flex justify-around">
-                <button
-                  disabled={deleteLoading}
-                  onClick={() => navigate(`${DISHES_PAGE}${EDIT_PIZZA}/${pizza.id}`)}
-                  className="capitalize underline text-xl"
-                >
-                  edit
-                </button>
-                <button
-                  disabled={deleteLoading}
-                  onClick={() => onDelete(pizza.id)}
-                  className="capitalize underline text-xl"
-                >
-                  delete
-                </button>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <PizzaView/>
     </div>
   );
 };
