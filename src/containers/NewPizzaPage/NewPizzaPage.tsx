@@ -4,7 +4,7 @@ import {useAppDispatch} from '../../redux/hooks';
 import {createPizza} from '../../store/dishes/PizzaThunk';
 import {placeholderImage} from '../../constants/image';
 
-const NewDishPage = () => {
+const NewPizzaPage = () => {
   const dispatch = useAppDispatch();
   const [pizza, setPizza] = useState<Pizza>({
     name: '',
@@ -24,6 +24,11 @@ const NewDishPage = () => {
   const onCreatePizza = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(createPizza(pizza));
+    setPizza(() => ({
+      name: '',
+      image: '',
+      price: 0,
+    }));
   };
 
   return (
@@ -73,4 +78,4 @@ const NewDishPage = () => {
   );
 };
 
-export default NewDishPage;
+export default NewPizzaPage;
