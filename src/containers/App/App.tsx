@@ -1,7 +1,9 @@
+import NewDishPage from '../NewDishPage/NewDishPage';
+
 const App = () => {
   return (
     <div>
-      <h1>Pizza</h1>
+      <NewDishPage/>
     </div>
   );
 };
