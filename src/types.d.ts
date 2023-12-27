@@ -43,7 +43,8 @@ export interface ApiOrders {
 }
 
 interface OrderPizza {
-  pizzaDetail: PizzaList;
+  id: string;
+  pizzaDetail: Pizza;
   amount: number;
 }
 

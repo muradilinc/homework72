@@ -1,5 +1,5 @@
 import React from 'react';
-import {DISHES_PAGE, EDIT_PIZZA} from '../../constants/routes';
+import {PIZZAS_PAGE, EDIT_PIZZA} from '../../constants/routes';
 import {PizzaList} from '../../types';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../redux/hooks';
@@ -44,14 +44,14 @@ const PizzaMemoed: React.FC<Props> = React.memo(function Pizza({pizza, amount, o
             <p>{pizza.price} KGS</p>
           </div>
           :
-          <div>x{amount}</div>
+          <div className="col-span-1">x{amount}</div>
       }
       {
         isAdmin ?
           <div className="col-span-1 flex justify-around">
             <button
               disabled={deleteLoading}
-              onClick={() => navigate(`${DISHES_PAGE}${EDIT_PIZZA}/${pizza.id}`)}
+              onClick={() => navigate(`${PIZZAS_PAGE}${EDIT_PIZZA}/${pizza.id}`)}
               className="capitalize underline text-xl"
             >
               edit
@@ -66,7 +66,7 @@ const PizzaMemoed: React.FC<Props> = React.memo(function Pizza({pizza, amount, o
           </div>
           :
           amount ?
-            <div>
+            <div className="col-span-1 grid place-content-center">
               {
                 isCheckout ?
                   <p>x{amount}</p>
@@ -81,7 +81,7 @@ const PizzaMemoed: React.FC<Props> = React.memo(function Pizza({pizza, amount, o
       }
       {
         isCheckout ? null :
-          <div className="grid place-content-center">
+          <div className="grid col-span-1 place-content-end">
             <button
               onClick={() => dispatch(deleteOrder(pizza.id))}
               className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"

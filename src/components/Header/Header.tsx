@@ -1,5 +1,5 @@
 import {Link, useLocation} from 'react-router-dom';
-import {DISHES_PAGE, HOME_PAGE, ORDERS_PAGE} from '../../constants/routes';
+import {PIZZAS_PAGE, HOME_PAGE, ORDERS_PAGE} from '../../constants/routes';
 import {checkAdmin} from '../../utils/checkAdmin';
 
 const Header = () => {
@@ -17,7 +17,7 @@ const Header = () => {
           isAdmin ?
             <div>
               <ul className="flex gap-x-3">
-                <li><Link to={DISHES_PAGE}>Dishes</Link></li>
+                <li><Link to={PIZZAS_PAGE}>Dishes</Link></li>
                 <li><Link to={ORDERS_PAGE}>Orders</Link></li>
               </ul>
             </div>
