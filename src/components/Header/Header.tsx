@@ -4,14 +4,13 @@ import {checkAdmin} from '../../utils/checkAdmin';
 
 const Header = () => {
   const location = useLocation();
-
   const isAdmin = checkAdmin(location.pathname);
 
   return (
     <div className="bg-blue-500 py-6 text-white">
       <div className="container mx-auto flex justify-between items-center">
         <div>
-          <h1 className="text-2xl"><Link to={HOME_PAGE}>Turtle Pizza</Link></h1>
+          <h1 className="text-2xl"><Link to={HOME_PAGE}>Turtle Pizza {isAdmin ? 'Admin' : null}</Link></h1>
         </div>
         {
           isAdmin ?

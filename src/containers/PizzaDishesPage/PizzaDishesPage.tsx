@@ -16,7 +16,6 @@ const PizzaDishesPage = () => {
     dispatch(getPizzas());
   }, [dispatch]);
 
-
   if (id) {
     return <Outlet/>;
   }
